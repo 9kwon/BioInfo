@@ -1,7 +1,8 @@
-# BioInfo
+(다음은 코네티컷 대학의 computational biology 페이지에 있는 파일 포맷 튜토리얼을 한국어로 정리한 것입니다. 출처: https://bioinformatics.uconn.edu/resources-and-events/tutorials-2/file-formats-tutorial/#)
 
 File Formats Tutorial
-This section explains some of the commonly used file formats in bioinformatics. The information provided here is basic and designed to help users to distinguish the difference between different formats. Please refer user manual or other information resources on web for more details.
+생물정보학에서 일반적으로 많이 쓰이는 다음의 파일에 대한 설명
+
 FASTA
 FASTQ
 SAM
@@ -9,729 +10,461 @@ BAM
 VCF
 GFF
 GTF
- 
- 
-FASTA
-File format :     FASTA
-File extensions :     file.fa, file.fasta, file.fsa
+1. FASTA
+File format : FASTA
+File extensions : file.fa, file.fasta, file.fsa
+
 Example :
->XR_002086427.1 Candida albicans SC5314 uncharacterized ncRNA (SCR1), ncRNA
+
+XR_002086427.1 Candida albicans SC5314 uncharacterized ncRNA (SCR1), ncRNA
 
 TGGCTGTGATGGCTTTTAGCGGAAGCGCGCTGTTCGCGTACCTGCTGTTTGTTGAAAATTTAAGAGCAAAGTGTCCGGCTCGATCCCTGCGAATTGAATTCTGAACGCTAGAGTAATCAGTGTCTTTCAAGTTCTGGTAATGTTTAGCATAACCACTGGAGGGAAGCAATTCAGCACAGTAATGCTAATCGTGGTGGAGGCGAATCCGGATGGCACCTTGTTTGTTGATAAATAGTGCGGTATCTAGTGTTGCAACTCTATTTTT
-Fasta format is a simple way of representing nucleotide or amino acid sequences of nucleic acids and proteins. This is a very basic format with two minimum lines. First line referred as comment line starts with ‘>’ and gives basic information about sequence. There is no set format for comment line. Any other line that starts with ‘;’ will be ignored. Lines with ‘;’ are not a common feature of fasta files. After comment line, sequence of nucleic acid or protein is included in standard one letter code. Any tabulators, spaces, asterisks etc in sequence will be ignored.
- 
- 
-FASTQ
-File format :     FASTQ
-File extensions :      file.fastq, file.sanfastq, file.fq
+
+
+
+Fasta 형식은 핵산 및 단백질의 뉴클레오티드 또는 아미노산 서열을 나타내는 간단한 방법으로 두 개의 최소 행이 있는 매우 기본적인 형식.
+주석 줄이라고 하는 첫 번째 줄은 ‘>’로 시작하고 순서에 대한 기본 정보를 제공. 주석 행에 설정된 형식은 없음. 주석 행 이후, 핵산 또는 단백질의 서열은 표준 1 문자 코드에 포함되며, 순서대로 모든 표 작성기, 공백, 별표 등은 무시됨
+
+
+2. FASTQ
+File format : FASTQ
+File extensions : file.fastq, file.sanfastq, file.fq
+
+
+
 Example :
-@K00188:208:HFLNGBBXX:3:1101:1428:1508 2:N:0:CTTGTA
-ATAATAGGATCCCTTTTCCTGGAGCTGCCTTTAGGTAATGTAGTATCTNATNGACTGNCNCCANANGGCTAAAGT
+
+@K00188:208:HFLNGBBXX:3:1101:1428:1508 
+2:N:0:CTTGTAATAATAGGATCCCTTTTCCTGGAGCTGCCTTTAGGTAATGTAGTATCTNATNGACTGNCNCCANANGGCTAAAGT
 +
 AAAFFJJJJJJJJJJJJJJJJJFJJFJJJJJFJJJJJJJJJJJJJJJJ#FJ#JJJJF#F#FJJ#F#JJJFJJJJJ
- 
-Fastq format was developed by Sanger institute in order to group together sequence and its quality scores (Q: phred quality score). In fastq files each entry is associated with 4 lines.
-Line 1 begins with a ‘@‘ character and is a sequence identifier and an optional description.
-Line 2 Sequence in standard one letter code.
-Line 3 begins with a ‘+‘ character and is optionally followed by the same sequence identifier (and any additional description) again.
-Line 4 encodes the quality values for the sequence in Line 2, and must contain the same number of symbols as letters in the sequence.
- 
-Extended description on the fastq format :
-Line 1: @K00188:208:HFLNGBBXX:3:1101:1428:1508 2:N:0:CTTGTA
 
- 
-Line 2: ATAATAGGATCCCTTTTCCTGGAGCTGCCTTTAGGTAATGTAGTATCTNATNGACTGNCNCCANANGGCTAAAGT
-DNA Sequence
- 
-Line 3: +
-No comment added
- 
-Line 4: AAAFFJJJJJJJJJJJJJJJJJFJJFJJJJJFJJJJJJJJJJJJJJJJ#FJ#JJJJF#F#FJJ#F#JJJFJJJJJ
-A quality score (PHRED scale) for each base pair. It indicates how confident we can be that the base was sequenced and identified correctly.
-Q = -10log­10(p)
-where p is the probability that the corresponding base call is incorrect.
-Phred quality score
-Probability that the base is called wrong
-Accuracy of the base call
-10
-1 in 10
-90%
-20
-1 in 100
-99%
-30
-1 in 1000
-99.90%
-40
-1 in 10000
-99.99%
-50
-1 in 100000
-100.00%
- 
-Fastq-sanger holds PHRED score from 0-93 whereas fastq-Illumina provides PHRED scores from 0-62. Rather than giving numeric values of PHRED score they are provided in ASCII character codes from 33 to 126. Why 33 to 126? Because 33 to 126 codes for single characters, so the score can be represented by a single character. Refer the table below.
-Dec
-Char
-PHRED
-Dec
-Char
-PHRED
-Dec
-Char
-PHRED
-Dec
-Char
-PHRED
-Dec
-Char
-PHRED
-33
-!
-0
-53
-5
-20
-73
-I
-40
-93
-]
-60
-113
-q
-80
-34
-“
-1
-54
-6
-21
-74
-J
-41
-94
-^
-61
-114
-r
-81
-35
-#
-2
-55
-7
-22
-75
-K
-42
-95
-_
-62
-115
-s
-82
-36
-$
-3
-56
-8
-23
-76
-L
-43
-96
-`
-63
-116
-t
-83
-37
-%
-4
-57
-9
-24
-77
-M
-44
-97
-a
-64
-117
-u
-84
-38
-&
-5
-58
-:
-25
-78
-N
-45
-98
-b
-65
-118
-v
-85
-39
-‘
-6
-59
-;
-26
-79
-O
-46
-99
-c
-66
-119
-w
-86
-40
-(
-7
-60
-<
-27
-80
-P
-47
-100
-d
-67
-120
-x
-87
-41
-)
-8
-61
-=
-28
-81
-Q
-48
-101
-e
-68
-121
-y
-88
-42
-*
-9
-62
->
-29
-82
-R
-49
-102
-f
-69
-122
-z
-89
-43
-+
-10
-63
-?
-30
-83
-S
-50
-103
-g
-70
-123
-{
-90
-44
-,
-11
-64
-@
-31
-84
-T
-51
-104
-h
-71
-124
-|
-91
-45
-–
-12
-65
-A
-32
-85
-U
-52
-105
-i
-72
-125
-}
-92
-46
-.
-13
-66
-B
-33
-86
-V
-53
-106
-j
-73
-126
-~
-93
-47
-/
-14
-67
-C
-34
-87
-W
-54
-107
-k
-74
+
+Fastq 형식은 서열과 품질 점수 (Q : phred quality score)를 그룹화하기 위해 Sanger Institute에서 개발했으며, fastq 파일에서 각 항목은 4 줄과 연결됨.
+
+
+1 행: ‘@’문자로 시작하며 시퀀스 식별자 및 선택적 설명
+2 행: 표준 1 문자 코드의 시퀀스
+3 행: "+"문자로 시작하며 선택적으로 동일한 시퀀스 식별자 (및 추가 설명)가 다시 옴
+4 행: 2 행의 시퀀스에 대한 품질 값을 인코딩하며 시퀀스의 문자와 동일한 수의 기호를 포함해야 함
 
 
 
-48
-0
-15
-68
-D
-35
-88
-X
-55
-108
-l
-75
+fastq 형식에 대한 자세한 설명 :
+
+
+1 행 : @ K00188 : 208 : HFLNGBBXX : 3 : 1101 : 1428 : 1508 2 : N : 0 : CTTGTA
 
 
 
-49
-1
-16
-69
-E
-36
-89
-Y
-56
-109
-m
-76
+fastq_table
 
 
 
-50
-2
-17
-70
-F
-37
-90
-Z
-57
-110
-n
-77
+2 행 : DNA 서열
 
 
 
-51
-3
-18
-71
-G
-38
-91
-[
-58
-111
-o
-78
+3 행 : +
 
 
 
-52
-4
-19
-72
-H
-39
-92
-\
-59
-112
-p
-79
+4 행 : 각 기본 쌍에 대한 품질 평가 점수 (PHRED 척도). 베이스가 올바르게 시퀀싱되고 식별되었다는 것을 얼마나 확신할 수 있는지 나타냄
+Q = -10log­10 (p)
+여기서 p는 해당 기준 통화가 올바르지 않을 확률
+
+
+Fastq-sanger는 0-93에서 PHRED 점수를, fastq-Illumina는 0-62에서 PHRED 점수를 나타냄. PHRED 점수의 숫자 값을 제공하는 대신 33에서 126 사이의 ASCII 문자 코드로 제공되며, 단일 문자는 33-126 코드이므로 단일 문자로 점수를 표시 할 수 있음 (아래 표 참고)
+
+
+기본 문자 (PHRED 점수 0을 나타내는 문자)를 기준으로 PHRED 스케일은 FHRED + 33 (ASCII 문자) 또는 FHRED + 64 (ASCII 문자). 아래 그림은 다양한 시퀀싱 표기법에 따른 PHRED 사용량을 보여줌.
+
+
+.fastq 파일에 사용 된 PHRED 점수 유형을 처리하기 전에 파악해야 함. 현재 Illumina .fastq 파일의 PHRED 점수는 +33. 
+자세한 내용은 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2847217/ 을 참조
 
 
 
- 
-Based on the base character ( character that represents zero PHRED score ), PHRED scale is often referred as FHRED+33 (ASCII character !) or FHRED+64 (ASCII Character ?). The figure below illustrates the PHRED usage across different sequencing notations.
 
-It is critical to figure out the PHRED score type used in .fastq files before processing them. Current Illumina .fastq files have +33 PHRED score. Please refer https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2847217/ for more details.
- 
- 
-SAM (Sequence Alignment Map)
+
+3. SAM (Sequence Alignment Map)
 File format :     SAM
+
 File extensions :     file.sam
+
 Example : 
-1:497:R:-272+13M17D24M	113	1	497	37	37M	15	100338662	0	CGGGTCTGACCTGAGGAGAACTGTGCTCCGCCTTCAG	0;==-==9;>>>>>=>>>>>>>>>>>=>>>>>>>>>>	XT:A:U	NM:i:0	SM:i:37	AM:i:0	X0:i:1	X1:i:0	XM:i:0	XO:i:0	XG:i:0	MD:Z:37
-19:20389:F:275+18M2D19M	99	1	17644	0	37M	=	17919	314	TATGACTGCTAATAATACCTACACATGTTAGAACCAT	>>>>>>>>>>>>>>>>>>>><<>>><<>>4::>>:<9	RG:Z:UM0098:1	XT:A:R	NM:i:0	SM:i:0	AM:i:0	X0:i:4	X1:i:0	XM:i:0	XO:i:0	XG:i:0	MD:Z:37
-19:20389:F:275+18M2D19M	147	1	17919	0	18M2D19M	=	17644	-314	GTAGTACCAACTGTAAGTCCTTATCTTCATACTTTGT	;44999;499<8<8<<<8<<><<<<><7<;<<<>><<	XT:A:R	NM:i:2	SM:i:0	AM:i:0	X0:i:4	X1:i:0	XM:i:0	XO:i:1	XG:i:2	MD:Z:18^CA19
-9:21597+10M2I25M:R:-209	83	1	21678	0	8M2I27M	=	21469	-244	CACCACATCACATATACCAAGCCTGGCTGTGTCTTCT	<;9<<5><<<<><<<>><<><>><9>><>>>9>>><>	XT:A:R	NM:i:2	SM:i:0	AM:i:0	X0:i:5	X1:i:0	XM:i:0	XO:i:1	XG:i:2	MD:Z:35
- 
-The SAM Format is a text format for storing sequence data in a series of tab delimited ASCII columns. Most often it is generated as a human readable version of its sister BAM format, which stores the same data in a compressed, indexed, binary form.
-SAM format files are generated following mapping of the reads to reference sequence. It is TAB-delimited text format with header and a body. Header lines start with ‘@’ while alignment lines do not. Header hold generic information on SAM file along with version information, if the file is sorted, information on reference sequence, etc. The alignment records constitute the body of the file. Each alignment line/record has 11 mandatory fields describing essential alignment information.
-Some terminology used in SAM manual:
-Template: The DNA fragment that was measured
-Reads: Depending on the methodology a template may produce one or more reads. These reads may cover the entire template or just a subsection of it. Reads originating from the same template typically cover different parts of the template, and, may represent the template itself or the reverse complement of it.
-Segments: Each read may produce one or more alignments that in turn will have aligned regions called segments. From these segments it may be possible the infer the size of the original template.
+
+1:497:R:-272+13M17D24M 113 1 497 37 37M 15 100338662 0 CGGGTCTGACCTGAGGAGAACTGTGCTC
+CGCCTTCAG 0;==-==9;>>>>>=>>>>>>>>>>>=>>>>>>>>>> XT:A:U NM:i:0 SM:i:37 AM:i:0 X0:i:1 X1:i:0 XM:i:0 XO:i:0 XG:i
+:0 MD:Z:37 
+19:20389:F:275+18M2D19M 99 1 17644 0 37M = 17919 314 TATGACTGCTAATAATACCTACACATGTTAGAACCA
+T >>>>>>>>>>>>>>>>>>>><<>>><<>>4::>>:<9 RG:Z:UM0098:1 XT:A:R NM:i:0 SM:i:0 AM:i:0 X0:i:4 X1:i:0 XM:i:0 XO:i
+:0 XG:i:0 MD:Z:37 
+19:20389:F:275+18M2D19M 147 1 17919 0 18M2D19M = 17644 -314 GTAGTACCAACTGTAAGTCCTTATCTTC
+ATACTTTGT ;44999;499<8<8<<<8<<><<<<><7<;<<<>><< XT:A:R NM:i:2 SM:i:0 AM:i:0 X0:i:4 X1:i:0 XM:i:0 XO:i:1 XG:i
+:2 MD:Z:18^CA19 
+9:21597+10M2I25M:R:-209 83 1 21678 0 8M2I27M = 21469 -244 CACCACATCACATATACCAAGCCTGGCTGTGTCTTC
+T <;9<<5><<<<><<<>><<><>><9>><>>>9>>><> XT:A:R NM:i:2 SM:i:0 AM:i:0 X0:i:5 X1:i:0 XM:i:0 XO:i:1 XG:i:2 MD:Z
+:35
+- SAM 형식은 탭으로 구분된 ASCII 열에 시퀀스 데이터를 저장하기 위한 텍스트 형식.
+
+- 보통 자매 BAM 형식의, 사람이 읽을 수있는 버전으로 생성되며, 동일한 데이터를 압축 색인화된 이진 형식으로 저장 
+- SAM 형식 파일은 read를 참조 시퀀스에 매핑 한 후 생성 되며, 헤더와 본문이 있는 탭으로 구분 된 텍스트 형식임.
+
+- 머리말 줄은‘@’로 시작하지만 맞춤 줄은 그렇게 시작하지 않음.
+
+- 헤더는 파일이 정렬 된 경우 버전 정보, 참조 순서 정보 등 SAM 파일에 대한 일반 정보를 보유합
+
+- 정렬 레코드는 파일의 본문을 구성하며, 각 정렬 라인 / 레코드에는 필수 정렬 정보를 설명하는 11 개의 필수 필드가 있음
+
+
+
+* sequence alignment: DNA, RNA 또는 단백질의 서열을 배열하여 서열 사이의 기능적, 구조적 또는 진화 적 관계의 결과 일 수있는 유사성의 영역을 확인하는 방법
+
+
+
+* SAM 설명서에 사용 된 몇 가지 용어 :
+Template : 측정된 DNA 조각
+
+Reads : 방법에 따라 템플릿이 하나 이상의 read를 생성할 수 있고, 이러한 read는 전체 템플릿 또는 해당 하위 섹션을 포괄할 수 있음. 동일한 템플릿에서 시작된 read는 템플릿의 다른 부분을 다루며, 템플릿 자체 또는 템플릿의 역보완(reverse complement)을 나타낼 수 있음
+Segments : 각 read는 segment라고 불리는 영역을 할당받는 하나 이상의 정렬을 생성할 수 있음. 이러한 segment로 원본 템플릿의 크기를 유추 할 수 있음
+
 
 source: http://samtools.github.io/hts-specs/SAMv1.pdf
-Fields:
-Col. 1 QNAME:
-Query NAME. Reads/segments having identical QNAME are regarded to come from the same template. A QNAME ‘*’ indicates the information is unavailable. In a SAM file, a read may occupy multiple alignment lines, when its alignment is chimeric .
-Col. 2 FLAG:
-Combination of bitwise flags.
-BIT
+Fields: 
+Col. 1 QNAME :
+Query NAME. QNAME이 동일한 reads/segments는 동일한 템플릿에서 가져온 것으로 간주됨.
 
-Description
-1
-0x1
-template having multiple segments in sequencing
-2
-0x2
-each segment properly aligned according to the aligner
-4
-0x4
-segment unmapped
-8
-0x8
-next segment in the template unmapped
-16
-0x10
-SEQ being reverse complemented
-32
-0x20
-SEQ of the next segment in the template being reverse complemented the first segment in the template
-64
-0x40
-the first segment in the template
-128
-0x80
-the last segment in the template
-256
-0x100
-secondary alignment
-512
-0x200
-not passing filters, such as platform/vendor quality controls
-1024
-0x400
-PCR or optical duplicate
-2048
-0x800
-supplementary alignment
-Col. 3 RNAME:
-Name of reference sequence. It generally refers to chromosome number.
+QNAME ‘*’ 는 정보를 사용불가를 나타며, SAM 파일에서 alignment 키메라(하나의 생물체 안에 유전 형질이 다른 세포가 함께 존재하는 경우)인 경우 read는 여러 alignment 라인을 차지할 수 있음
+
+
+
+Col. 2 FLAG: bit단위 플래그의 조합
+
+
+Col. 3 RNAME : 
+참조 순서의 이름. 일반적으로 염색체 수를 나타냄
+
+
+
 Col. 4 POS:
-Leftmost mapping position of the first matching base in read. It has 1-based indexing. If pos is set as 0, it represents a unmapped read. For a read pair READ1/1 and READ1/2 and single Read2
-Reference:    GTACGACTGACTAGACGATAC**GTAACGATCAGTCTCGATAGCGATAGGCTAGCTAGCAGCTAGCAG
 
-              12345678901234567890123456789012345678901234567890123456789012345678         
+read에서 첫 번째로 일치하는 베이스의 가장 왼쪽 매핑 위치. 1-based 인덱싱. pos가 0으로 설정되면 매핑되지 않은 read임. 하나의 read에 대해 READ1/1, READ1/2, 단일 Read2
 
-Read1/1         ACGACTGA  
-
--Read1/2                                         CGATAGC
-
-Read2                     ccccGATACTAGTAA*GAT..GTCT            
-
+Reference:    GTACGACTGACTAGACGATAC**GTAACGATCAGTCTCGATAGCGATAGGCTAGCTAGCAGCTAGCAG       
+              12345678901234567890123456789012345678901234567890123456789012345678          
+Read1/1         ACGACTGA   
+-Read1/2                                         CGATAGC 
+Read2       ccccGATACTAGTAA*GAT..GTCT             
 Pos values    3                                38
+
+
 Col. 5 MAPQ: 
-It indicates MAPpping Quality. MAPQ= -10log10(Probability of mapping position being wrong). MAPQ=255 indicates mapping quality is unavailable.
+
+매핑 품질.  MAPQ = -10log10 (매핑 위치가 잘못됐을 가능성). MAPQ = 255는 매핑 품질을 사용 불가.
+
+
+
 Col. 6 CIGAR:
-A string that describes alignment.
-OP
-BAM
-Description
-M
-0
-alignment match (can be a sequence match or mismatch)
-I
-1
-insertion to the reference
-D
-2
-deletion from the reference
-N
-3
-skipped region from the reference
-S
-4
-soft clipping (clipped sequences present in SEQ)
-H
-5
-hard clipping (clipped sequences NOT present in SEQ)
-P
-6
-padding (silent deletion from padded reference
-=
-7
-sequence match
-X
-8
-sequence mismatch
-Difference between H and S is that if the mismatch sequence is reported as part of read sequence in alignment file it is a soft clipping. Often mismatch region matches somewhere else in reference sequence and in that case the mismatch region is removed from reported read sequence in alignment and is referred as Hard clipping.
-Reference:    GTACGACTGACTAGACGATAC**GTAACGATCAGTCTCGATAGCGATAGGCTAGCTAGCAGCTAGCAG
 
-              12345678901234567890123456789012345678901234567890123456789012345678         
+alignment를 설명하는 문자열
 
+
+H와 S의 차이점은, 불일치 시퀀스가 정렬 파일에서 read 시퀀스의 일부로 보고 되면 소프트 클리핑이라는 것. 불일치 영역은 종종 참조 시퀀스의 다른 곳과 일치하며, 이 경우 불일치 영역은 정렬된 상태로 보고된 read 시퀀스에서 제거되며 하드 클리핑 (hard clipping)으로 지칭됨
+
+Reference:    GTACGACTGACTAGACGATAC**GTAACGATCAGTCTCGATAGCGATAGGCTAGCTAGCAGCTAGCAG    
+              12345678901234567890123456789012345678901234567890123456789012345678          
 Read2                    ccccGATACTAGTAA*GAT..GTCT
-CIGAR value of Read2 in POS example will be:
-cccc does not match anywhere else in reference so soft clipping. , 5 ( GATAC) Matches, 2 (TA) Insertion, 4(GTAA) Matches, 1(*) Deletion, 3 (GAT) Matches, 2(..)Skipped region from reference(N), 4(GTCT) Matches
-CIGAR Strings:
-Read2 :   5S2M2I4M1D3M2N4M
- 
+POS 예제에서 Read2의 CIGAR 값은 다음과 같음
+cccc는 소프트 클리핑과 관련하여 다른 곳에서는 일치하지 않음
+
+, 5 (GATAC) 일치, 2 (TA) 삽입, 4 (GTAA) 일치, 1 (*) 삭제, 3 (GAT) 일치, 2 (..) 참조에서 건너 뛴 영역 (N), 4 (GTCT) 일치 
+시가 문자열 : 
+Read 2 : 5S2M2I4M1D3M2N4M
+
+
+
 Col. 7 RNEXT , Col. 8 PNEXT:
-RNEXT and PNEXT is to know the reference and position of a paired end read’s partner for visualisation tools. RNEXT is the name of the chromosome or contig to which the next template in a pair aligns. RNEXT of value ‘=‘ means align to same reference and ‘*’ represent no information available (single end sequencing). PNEXT where the other read of the pair aligns (Information unavailable =0, Otherwise POS value of pair).
+
+RNEXT 및 PNEXT는 시각화 도구를 위한 paired end read 쌍(partner)의 참조 및 위치를 파악하기 위한 것.
+
+RNEXT는 a pair align에서 다음 템플렛에 있는 염색체 또는 콘티그(서로 겹치면서 연속되어 있는 DNA 절편들의 집합)의 이름. ‘=’값의 RNEXT는 동일한 참조에 align됨을 의미하고 ‘*’는 사용 가능한 정보가 없음을 나타냄 (single end sequencing). 쌍의 다른 read가 정렬되는 PNEXT (정보를 사용할 수 없음 = 0, 그렇지 않으면 POS 값)
+
 Reference:    GTACGACTGACTAGACGATAC**GTAACGATCAGTCTCGATAGCGATAGGCTAGCTAGCAGCTAGCAG
+              12345678901234567890123456789012345678901234567890123456789012345678          
+Read1/1         ACGACTGA   
+-Read1/2                                         CGATAGC 
+Read2                    ccccGATACTAGTAA*GAT..GTCT  
+Read1/1 과 Read1/2 가 쌍이고, Read 3 는 쌍이 없음. 그러므로 RNEX 및 PNEXT 값은 다음과 같음
 
-              12345678901234567890123456789012345678901234567890123456789012345678         
+READ                        RNEXT                PNEXT              TLEN
 
-Read1/1         ACGACTGA  
+Read1/1                        =                     38                   42
 
--Read1/2                                         CGATAGC
+Read1/2                        =                      3                   -42
 
-Read2                    ccccGATACTAGTAA*GAT..GTCT      
+Read3                           *                      0                     0
 
-Read1/1 and Read1/2 are pair and Read 3 is unpaired. So the RNEX and PNEXT values will be
-READ                        RNEXT                     PNEXT         TLEN
-Read1/1                   =                                 38                   42
-Read1/2                   =                                 3                      -42
-Read3                       *                                  0                      0
- 
+
+
 Col. 9 TLEN : Observed Template LENgth
-It represents the length of reference that is covered by pair end reads. The distance between leftmost mapped base to rightmost mapped base in paired reads. For unpaired reads it is 0.
-Col. 10 SEQ: Sequence of the read or Segment.
-Col. 11 QUAL: PHRED score values of read. If ‘*’ no values are stored.
+
+pair end read로 커버되는 참조 길이. 쌍으로 된 read에서 가장 왼쪽 매핑된 베이스와 가장 오른쪽 매핑된 베이스 사이의 거리로, 페어링되지 않은 read는 0
+
+
+
+Col. 10 SEQ: read나 segment의 서열(sequence)
+
+
+Col. 11 QUAL: read의 PHRED score values.  ‘*’는 저장된 값이 없음을 의미
+
 Example:
 
 
-BAM
+
+
+4. BAM (Binary Alignment / Map)
 File format :     BAM
+
 File extensions :     file.bam
-A BAM (Binary Alignment/Map) file is the compressed binary version of the Sequence Alignment/Map (SAM), a compact and indexable representation of nucleotide sequence alignments. The data between SAM and BAM is exactly same. Being Binary BAM files are small in size and ideal to store alignment files. Require samtools to view the file.
- 
-VCF (Variant Calling Format/File)
+
+BAM (Binary Alignment / Map) 파일은 압축된 이진 버전의 Sequence Alignment / Map (SAM)이며, 뉴클레오티드 서열 정렬의 컴팩트하고 색인 가능한 표현. SAM과 BAM 간의 데이터는 정확히 동일. 이진 BAM 파일은 크기가 작으며 정렬 파일을 저장하는데 이상적. 파일을 보려면 samtools가 필요함
+
+
+
+
+
+5. VCF (Variant Calling Format / File)
 File format :     VCF
+
 File extensions :     file.vcf
-Example : 
-##fileformat=VCFv4.2
-##fileDate=20090805
-##source=myImputationProgramV3.1
-##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta
-##contig=<ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species="Homo sapiens",taxonomy=x>
-##phasing=partial
-##INFO=<ID=NS,Number=1,Type=Integer,Description="Number of Samples With Data">
-##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
-##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
-##INFO=<ID=AA,Number=1,Type=String,Description="Ancestral Allele">
-##INFO=<ID=DB,Number=0,Type=Flag,Description="dbSNP membership, build 129">
-##INFO=<ID=H2,Number=0,Type=Flag,Description="HapMap2 membership">
-##FILTER=<ID=q10,Description="Quality below 10">
-##FILTER=<ID=s50,Description="Less than 50% of samples have data">
-##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
-##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
-##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
-##FORMAT=<ID=HQ,Number=2,Type=Integer,Description="Haplotype Quality">
-#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT NA00001 NA00002 NA00003
-20 14370 rs6054257 G A 29 PASS NS=3;DP=14;AF=0.5;DB;H2 GT:GQ:DP:HQ 0|0:48:1:51,51 1|0:48:8:51,51 1/1:43:5:.,.
-20 17330 . T A 3 q10 NS=3;DP=11;AF=0.017 GT:GQ:DP:HQ 0|0:49:3:58,50 0|1:3:5:65,3 0/0:41:3
-20 1110696 rs6040355 A G,T 67 PASS NS=2;DP=10;AF=0.333,0.667;AA=T;DB GT:GQ:DP:HQ 1|2:21:6:23,27 2|1:2:0:18,2 2/2:35:4
-20 1230237 . T . 47 PASS NS=3;DP=13;AA=T GT:GQ:DP:HQ 0|0:54:7:56,60 0|0:48:4:51,51 0/0:61:2
+
+Example:
+
+##fileformat=VCFv4.2 
+##fileDate=20090805 
+##source=myImputationProgramV3.1 
+##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta 
+##contig=<ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species="Homo sapiens",taxonomy=x> 
+##phasing=partial 
+##INFO=<ID=NS,Number=1,Type=Integer,Description="Number of Samples With Data"> 
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth"> 
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency"> 
+##INFO=<ID=AA,Number=1,Type=String,Description="Ancestral Allele"> 
+##INFO=<ID=DB,Number=0,Type=Flag,Description="dbSNP membership, build 129"> 
+##INFO=<ID=H2,Number=0,Type=Flag,Description="HapMap2 membership"> 
+##FILTER=<ID=q10,Description="Quality below 10"> 
+##FILTER=<ID=s50,Description="Less than 50% of samples have data"> 
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype"> 
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality"> 
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth"> 
+##FORMAT=<ID=HQ,Number=2,Type=Integer,Description="Haplotype Quality"> 
+#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT NA00001 NA00002 NA00003 
+20 14370 rs6054257 G A 29 PASS NS=3;DP=14;AF=0.5;DB;H2 GT:GQ:DP:HQ 0|0:48:1:51,51 1|0:48:8:51,51 1/1:43:5:.,. 
+20 17330 . T A 3 q10 NS=3;DP=11;AF=0.017 GT:GQ:DP:HQ 0|0:49:3:58,50 0|1:3:5:65,3 0/0:41:3 
+20 1110696 rs6040355 A G,T 67 PASS NS=2;DP=10;AF=0.333,0.667;AA=T;DB GT:GQ:DP:HQ 1|2:21:6:23,27 2|1:2:0:18,2 2/2:35:4 
+20 1230237 . T . 47 PASS NS=3;DP=13;AA=T GT:GQ:DP:HQ 0|0:54:7:56,60 0|0:48:4:51,51 0/0:61:2 
 20 1234567 microsat1 GTC G,GTCT 50 PASS NS=3;DP=9;AA=G GT:GQ:DP 0/1:35:4 0/2:17:2 1/1:40:3
-VCF is a text file format with a header (information VCF version, sample etc) and data lines constitute the body of file.
- 
-HEADER:
-This contains meta-information and is included after ‘##’ string. It is recommended to include INFO, FILTER and FORMAT entries for a better explanation of the data field.
-Metadata format:
-##INFO=<ID=ID,Number=number,Type=type,Description="description",Source="source",Version="version">
+VCF는 헤더(정보 VCF 버전, 샘플 등)가있는 텍스트 파일 형식이며, 데이터 라인이 파일 본문을 구성함
 
+
+
+HEADER: 메타 정보가 포함되며 ‘##’ 문자열 뒤에 포함됨.
+
+            데이터 필드에 대한 자세한 설명을 위해 INFO, FILTER 및 FORMAT 항목을 포함하는 것이 좋음
+
+메타 데이터 형식 :
+
+##INFO=<ID=ID,Number=number,Type=type,Description="description",Source="source",Version="version"> 
 ##FILTER=<ID=ID,Description="description">##FORMAT=<ID=ID,Number=number,Type=type,Description="description">
-Other information like alternate allele, assembly field, Contig field, sample field, pedigree field can also be included.
-DATA FIELD:
-Data lines have 8 mandatory columns.
-#CHROM, POS, ID, REF, ALT, QUAL, FILTER, INFO.
-VCF format has very well explained manual available at https://samtools.github.io/hts-specs/VCFv4.2.pdf .
-GFF (General Feature Format or Gene Finding Format)
+alternate allele, assembly field, Contig field, sample field, pedigree field와 같은 다른 정보도 포함 가능함
+
+
+
+DATA FIELD: 데이터 라인은 8개의 필수 열을 가짐 (#CHROM, POS, ID, REF, ALT, QUAL, FILTER, INFO)
+
+VCF 포맷은 다음 문서에서 상세히 설명하고 있음  https://samtools.github.io/hts-specs/VCFv4.2.pdf
+
+
+
+
+
+6. GFF (General Feature Format or Gene Finding Format)
 File format :     GFF
+
 File extensions :     file.gff2, file. gff3, file.gff
+
 Example : 
-GFF2:
-browser position chr22:10000000-10025000
 
-browser hide all
+GFF2
 
-track name=regulatory description="TeleGene(tm) Regulatory Regions"
-
-visibility=2
-
-chr22 TeleGene enhancer 10000000 10001000 500 + . touch1
-
-chr22 TeleGene promoter 10010000 10010100 900 + . touch1
-
+browser position chr22:10000000-10025000 
+browser hide all 
+track name=regulatory description="TeleGene(tm) Regulatory Regions" 
+visibility=2 
+chr22 TeleGene enhancer 10000000 10001000 500 + . touch1 
+chr22 TeleGene promoter 10010000 10010100 900 + . touch1 
 chr22 TeleGene promoter 10020000 10025000 800 - . touch2
-GFF3:
-It has first 8 fields like GFF2 but differs in field 9 in assigning attributes. 2 are highlighted here.
-(a) GFF3 has better nesting feature. Links features to parent tag
-##gff-version 3
+GFF3
 
-ctg123 . mRNA           1300 9000 . + . ID=mrna0001;Name=sonichedgehog
+GFF2와 같은 처음 8 개의 필드가 있지만 속성 지정에서 필드 9가 다른데, 여기에 2가 강조 표시됨 
 
-ctg123 . exon           1300 1500 . + . ID=exon00001;Parent=mrna0001
 
-ctg123 . exon           1050 1500 . + . ID=exon00002;Parent=mrna0001
 
-ctg123 . exon           3000 3902 . + . ID=exon00003;Parent=mrna0001
+(a) GFF3는 nesting feature에 더 나음. 부모 태그에 대한 Link가 특징화됨
 
-ctg123 . exon           5000 5500 . + . ID=exon00004;Parent=mrna0001
-
+##gff-version 3 
+ctg123 . mRNA           1300 9000 . + . ID=mrna0001;Name=sonichedgehog 
+ctg123 . exon           1300 1500 . + . ID=exon00001;Parent=mrna0001 
+ctg123 . exon           1050 1500 . + . ID=exon00002;Parent=mrna0001 
+ctg123 . exon           3000 3902 . + . ID=exon00003;Parent=mrna0001 
+ctg123 . exon           5000 5500 . + . ID=exon00004;Parent=mrna0001 
 ctg123 . exon           7000 9000 . + . ID=exon00005;Parent=mrna0001
-(b) The most general way of representing a protein-coding gene is the so-called “three-level gene.” The top level is a feature of type “gene” which bundles up the gene’s transcripts and regulatory elements. Beneath this level are one or more transcripts of type “mRNA”. This level can also accommodate promoters and other cis-regulatory elements. At the third level are the components of the mRNA transcripts, most commonly CDS coding segments and UTRs. This example shows how to represent a gene named “EDEN” which has three alternatively-spliced mRNA transcripts:
-ctg123 example gene           1050 9000 . + . ID=EDEN;Name=EDEN;Note=protein kinase
+(b) 단백질 코딩 유전자를 나타내는 가장 일반적인 방법은 소위 "three-level gene"임. 최상위 수준은 유전자의 전사물(transcript)과 조절 인자(regulatory elements)를 묶는 "유전자" 유형의 feature이며, 이 수준 아래에는 "mRNA" 유형의 하나 이상의 전사물이 있음. 이 수준은 프로모터 및 다른 시스 조절 인자(cis-regulatory elements)를 수용 할 수 있음.
 
-ctg123 example mRNA           1050 9000 . + . ID=EDEN.1;Parent=EDEN;Name=EDEN.1;Index=1
+세 번째 수준에는 mRNA 전사체의 구성 요소, 가장 일반적으로 CDS 코딩 세그먼트 및 UTR이 있음.
 
-ctg123 example five_prime_UTR 1050 1200 . + . Parent=EDEN.1
+아래 예는 3개의 대안적으로 스플라이싱된 mRNA 전사체를 갖는 "EDEN"이라는 유전자를 나타내는 방법을 보여줌
 
-ctg123 example CDS             1201 1500 . + 0 Parent=EDEN.1
-
-ctg123 example CDS             3000 3902 . + 0 Parent=EDEN.1
-
-ctg123 example CDS             5000 5500 . + 0 Parent=EDEN.1
-
-ctg123 example CDS             7000 7608 . + 0 Parent=EDEN.1
-
-ctg123 example three_prime_UTR 7609 9000 . + . Parent=EDEN.1
-
-
-
-
-ctg123 example mRNA           1050 9000 . + . ID=EDEN.2;Parent=EDEN;Name=EDEN.2;Index=1
-
-ctg123 example five_prime_UTR 1050 1200 . + . Parent=EDEN.2
-
-ctg123 example CDS             1201 1500 . + 0 Parent=EDEN.2
-
-ctg123 example CDS             5000 5500 . + 0 Parent=EDEN.2
-
-ctg123 example CDS             7000 7608 . + 0 Parent=EDEN.2
-
-ctg123 example three_prime_UTR 7609 9000 . + . Parent=EDEN.2
-
-
-
-
-ctg123 example mRNA           1300 9000 . + . ID=EDEN.3;Parent=EDEN;Name=EDEN.3;Index=1
-
-ctg123 example five_prime_UTR 1300 1500 . + . Parent=EDEN.3
-
-ctg123 example five_prime_UTR 3000 3300 . + . Parent=EDEN.3
-
-ctg123 example CDS             3301 3902 . + 0 Parent=EDEN.3
-
-ctg123 example CDS             5000 5500 . + 1 Parent=EDEN.3
-
-ctg123 example CDS             7000 7600 . + 1 Parent=EDEN.3
-
+ctg123 example gene           1050 9000 . + . ID=EDEN;Name=EDEN;Note=protein kinase 
+ctg123 example mRNA           1050 9000 . + . ID=EDEN.1;Parent=EDEN;Name=EDEN.1;Index=1 
+ctg123 example five_prime_UTR 1050 1200 . + . Parent=EDEN.1 
+ctg123 example CDS             1201 1500 . + 0 Parent=EDEN.1 
+ctg123 example CDS             3000 3902 . + 0 Parent=EDEN.1 
+ctg123 example CDS             5000 5500 . + 0 Parent=EDEN.1 
+ctg123 example CDS             7000 7608 . + 0 Parent=EDEN.1 
+ctg123 example three_prime_UTR 7609 9000 . + . Parent=EDEN.1 
+ctg123 example mRNA           1050 9000 . + . ID=EDEN.2;Parent=EDEN;Name=EDEN.2;Index=1 
+ctg123 example five_prime_UTR 1050 1200 . + . Parent=EDEN.2 
+ctg123 example CDS             1201 1500 . + 0 Parent=EDEN.2 
+ctg123 example CDS             5000 5500 . + 0 Parent=EDEN.2 
+ctg123 example CDS             7000 7608 . + 0 Parent=EDEN.2 
+ctg123 example three_prime_UTR 7609 9000 . + . Parent=EDEN.2 
+ctg123 example mRNA           1300 9000 . + . ID=EDEN.3;Parent=EDEN;Name=EDEN.3;Index=1 
+ctg123 example five_prime_UTR 1300 1500 . + . Parent=EDEN.3 
+ctg123 example five_prime_UTR 3000 3300 . + . Parent=EDEN.3 
+ctg123 example CDS             3301 3902 . + 0 Parent=EDEN.3 
+ctg123 example CDS             5000 5500 . + 1 Parent=EDEN.3 
+ctg123 example CDS             7000 7600 . + 1 Parent=EDEN.3 
 ctg123 example three_prime_UTR 7601 9000 . + . Parent=EDEN.3
-Source: http://gmod.org/wiki/GFF3
-GFF (General Feature Format or Gene Finding Format). GFF can be used for any kind of feature (Transcripts, exon, intron, promoter, 3’ UTR, repeatitive elements etc) associated with the sequence, whereas GTF is primarily for genes/transcripts.  GFF3 is the latest version and an improvement over GFF2 format. However, many databases are still not equipped to handle GFF3 version. The differences will be explained later in text.
-The GFF format has 9 mandatory columns and they are TAB separated. The 9 columns are as follows.
-Col. 1 Reference Sequence: 
-This is the ID of reference sequence used to establish coordinate system for annotation. Usually chromosome name or number.
-Col. 2 Source:
-This explains how the feature annotation is derived. The source is a free text qualifier intended to describe the algorithm or operating procedure that generated this feature. Typically this is the name of a piece of software, such as “Genescan” or a database name, such as “Genbank.” In effect, the source is used to extend the feature ontology by adding a qualifier to the type creating a new composite type that is a subclass of the type in the type column. It is not necessary to specify a source. If there is no source, put a “.” (a period) in this field.
-Col. 3 Feature:
-The feature type name, like “gene” or “exon”. In a well-structured GFF file, all the children(exons, introns etc) features always follow their parents(Transcript) feature line. This way they are part of a single block
-Col. 4 Start:
-Genomic Start of the feature.
-Col. 5 End:
-Genomic Start of the feature
-Col. 6 Score:
-Numeric value that generally indicates the confidence of the source on the annotated feature. A value of “.” (a dot) is used to define a null value. The semantics of the score are ill-defined. In GFF3 format,It is strongly recommended that E-values be used for sequence similarity features, and that P-values be used for ab initio gene prediction features. If there is no score, put a “.” (a period) in this field.
-Col. 7 Strand:
-Field that indicates the sense strand of the feature. “+’ :Watson strand and ‘-‘: crick strand. ‘?’ can be used for features whose strandedness is relevant, but unknown.
+GFF는 염기 서열, 엑손, 인트론, 프로모터, 3 'UTR, 반복 요소 등의 모든 기능에 사용될 수 있지만 GTF는 주로 유전자 / 전사에 사용됨. GFF3은 최신 버전이며 GFF2 형식보다 개선됨. 그러나 많은 데이터베이스에는 여전히 GFF3 버전을 처리 할 수있는 기능이 없음. 
+
+
+GFF 형식에는 9 개의 필수 열이 있으며 탭으로 구분됨. 9 열은 다음과 같음
+
+Col. 1 Reference Sequence: 주석 좌표 시스템을 설정하는 데 사용되는 참조 시퀀스의 ID. 염색체 이름 또는 번호
+
+
+
+Col. 2 Source: 기능 주석이 파생되는 방법에 대한 설명. 소스는 이 기능을 생성한 알고리즘 또는 운영 절차를 설명하기 위한 자유 텍스트 qualifier임. 보통 "Genescan"과 같은 소프트웨어 또는 "Genbank"와 같은 데이터베이스 이름.실제로 소스는 유형 열에 유형의 서브 클래스인 새 구성 유형(composite type)을 작성하여 qualifier를 유형에 추가하여 feature 온톨로지를 확장하는 데 사용됨. 소스를 지정할 필요는 없으며, 출처가 없으면 필드에 “.”을 입력
+
+
+
+Col. 3 Feature: "gene" 또는 "exon"과 같은 feature 이름. 잘 구성된 GFF 파일에서 모든 자식(엑손, 인트론 등) feature는 항상 부모(전사물) feature 라인을 따르며, 이런 식으로 단일 블록의 일부가 됨
+
+
+
+Col. 4 Start: feature의 유전자적 시작
+
+
+
+Col. 5 End: feature의 유전자적 끝
+
+
+
+Col. 6 Score: 주석이 달린 피쳐에서 소스의 신뢰도를 일반적으로 나타내는 숫자 값. "."의 값 (점)은 null 값을 정의하는 데 사용. 점수의 semantics는 잘 정의되어 있지 않음(ill-defined). GFF3 형식에서는 E- 값을 서열 유사성 특징에 사용하고 P- 값을 초기 유전자 예측 특징에 사용하는 것이 좋으며, 점수가 없으면 필드에 “.”을 입력
+
+
+
+Col. 7 Strand: 피처의 감지 가닥을 나타내는 필드
+
+“+ ': Watson strand
+
+‘-’: Crick stran
+
+‘?’는 관련성이 있지만 알려지지 않은 피쳐
+
+
+
 Col. 8 Frame (GFF2 and GTF) or Phase (GFF3):
-For features of type “CDS”, the phase indicates where the feature begins with reference to the reading frame. The phase is one of the integers 0, 1, or 2, indicating the number of bases that should be removed from the beginning of this feature to reach the first base of the next codon. In other words, a phase of “0” indicates that the next codon begins at the first base of the region described by the current line, a phase of “1” indicates that the next codon begins at the second base of this region, and a phase of “2” indicates that the codon begins at the third base of this region. This is NOT to be confused with the frame, which is simply start modulo 3. If there is no phase, put a “.” (a period) in this field.
-For forward strand features, phase is counted from the start field. For reverse strand features, phase is counted from the end field.
-The phase is required for all CDS features.
-Explained let say ### and *** represent consecutive exons.
-CTG C is first base (0), T is second base (1), G is third base(2)
-Previous exon               Phase value                next Exon
+
+"CDS" 유형의 피쳐에서 위상(phase)은 피처가 read 프레임을 참조하여 시작되는 위치를 나타냄. 위상은 정수 0, 1 또는 2 중 하나이며, 이 피쳐의 시작에서 제거되어 다음 코돈의 첫 번째 염기에 도달해야 하는 염기의 수를 나타냄.
+
+즉, "0"의 위상은 다음 코돈이 현재 라인에 의해 기술된 영역의 첫 번째 염기에서 시작함을 나타내고,
+
+"1"의 위상은 다음 코돈이 이 영역의 두 번째베이스에서 시작됨을 나타내고,
+
+"2"의 위상은 코돈이 이 영역의 세 번째 염기에서 시작 함을 나타냄.
+
+이것은 단순히 모듈로 3을 시작하는 프레임과 혼동되어서는 안되며, 위상이 없으면 필드에 “.” 
+
  
-5’                                                           3’
+정방향 스트랜드 피쳐에서 위상은 시작 필드부터 계산됨. 리버스 스트랜드 피처의 경우, 위상은 끝 필드에서 계산됨.
 
-…###***###***###                0                      ***###***###***#…
+위상(phase)은 모든 CDS 피쳐에 대해 필수적(required).
 
-…##***###***###*                1                      **###***###***##…
 
+
+### and ***는 연속적인 엑손을 나타내며, CTG  C는 첫번째 base (0), T는 두번째 base (1), G는 세번째 base (2) 
+
+Previous exon               Phase value                next Exon   
+5’                                                           3’ 
+…###***###***###                0                      ***###***###***#… 
+…##***###***###*                1                      **###***###***##… 
 …#***###***###**                2                      *###***###***###…
- 
-Col. 9  Attribute or Group field:
-All lines with the same group are linked together into a single item. The group field is a challenge. It is used in several distinct ways:
-to group together a single sequence feature that spans a discontinuous range, such as a gapped alignment.
-to name a feature, allowing it to be retrieved by name.
-to add one or more notes to the annotation.
-to add an alternative name
-Problems with GFF2:
-One of GFF2’s problems is that it is only able to represent one level of nesting of features. This is mainly a problem when dealing with genes that have multiple alternatively-spliced transcripts. GFF2 is unable to deal with the three-level hierarchy of gene → transcript → exon. Most people get around this by declaring a series of transcripts and giving them similar names to indicate that they come from the same gene.
-The second limitation is that while GFF2 allows you to create two-level hierarchies, such as transcript → exon, it doesn’t have any concept of the direction of the hierarchy. So it doesn’t know whether the exon is a subfeature of the transcript, or vice-versa. This means you have to use “aggregators” to sort out the relationships. This is a major pain in the neck. For this reason, GFF2 format has been deprecated in favor of GFF3 format databases.
- 
-GTF (Gene Transfer format)
+
+
+Col. 9  Attribute or Group field: 동일한 그룹을 가진 모든 라인은 단일 항목으로 연결됨. 그룹 분야는 어려운데, 다음과 같은 다양한 독특한 방식으로 사용됨. 
+- 갭 정렬과 같이 불연속 범위에 걸쳐있는 단일 시퀀스 피처를 그룹화하기 위해
+
+- 이름으로 검색 할 수 있도록 피쳐의 이름을 지정하기 위해
+
+- 주석에 하나 이상의 메모를 추가하기 위해
+
+- 대체 이름을 추가하기 위해
+
+
+
+GFF2의 문제점 : 
+1. 피쳐의 중첩 레벨을 하나만 나타낼 수 있다는 것. 대체로 접합된 전사체가 여러 개인 유전자를 다룰 때 주로 문제가 되는데, GFF2는 유전자 → 전사체 → 엑손의 3 단계 계층 구조를 처리 할 수 ​​없음
+
+
+
+보통 일련의 전사물을 선언하고 동일한 유전자에서 유래했음을 나타내는 유사한 이름을 부여함으로써 이 문제를 해결 
+2. GFF2를 사용하여 스크립트 → 엑손과 같은 2 단계 계층 구조를 만들 수 있지만 계층 구조의 방향에 대한 개념이 없음. 따라서 엑손이 전사물의 하위 기능인지 또는 그 반대인지는 알 수 없음. 이것은 관계자를 정리하기 위해 “aggregator”를 사용해야한다는 것을 의미함. 이것은 큰 제한점이므로, GFF2 형식은 GFF3 형식 데이터베이스를 위해 더 이상 사용되지 않음
+
+
+
+
+
+7. GTF (Gene Transfer format)
 File format :     GTF
+
 File extensions :     file.gtf
+
 Example : 
-AB000381 Twinscan  exon         150   200   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
 
-AB000381 Twinscan  exon         300   401   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  CDS          380   401   .   +   0  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  exon         501   650   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  CDS          501   650   .   +   2  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  exon         700   800   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  CDS          700   707   .   +   2  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  exon         900  1000   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
-AB000381 Twinscan  start_codon  380   382   .   +   0  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-
+AB000381 Twinscan  exon         150   200   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  exon         300   401   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  CDS          380   401   .   +   0  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  exon         501   650   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  CDS          501   650   .   +   2  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  exon         700   800   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  CDS          700   707   .   +   2  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  exon         900  1000   .   +   .  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
+AB000381 Twinscan  start_codon  380   382   .   +   0  gene_id "AB000381.000"; transcript_id "AB000381.000.1"; 
 AB000381 Twinscan  stop_codon   708   710   .   +   0  gene_id "AB000381.000"; transcript_id "AB000381.000.1";
-GTF has the same format as GFF files. It has the same 9 fields that describe the gene/ transcript related features. The group/attribute field has been expanded into a list of attributes. Each attribute consists of a type/value pair. Attributes must end in a semi-colon, and be separated from any following attribute by exactly one space. The attribute list must begin with the two mandatory attributes:
-gene_id value: A globally unique identifier for the genomic source of the sequence.
-transcript_id value: A globally unique identifier for the predicted transcript.
-A very good account of GTF file is present at http://mblab.wustl.edu/GTF2.html
+GTF는 GFF 파일과 형식이 동일하며, 유전자 / 전사 관련 기능을 설명하는 동일한 9 개의 필드가 있음.
+
+그룹 / 속성 필드가 속성 목록으로 확장되었으며, 각 속성은 유형 / 값 쌍으로 구성됨. 속성은 세미콜론으로 끝나야하며 다음 속성과 정확히 하나의 공백으로 구분해야 함. 속성 목록은 두 가지 필수 속성으로 시작함
+
+
+
+gene_id value : 서열의 유전자 소스에 대한 전역 고유 식별자 
+transcript_id value : 예측된 전사물의 전역 고유 식별자
+GTF 파일에 대한 설명은 다음에 잘 설명되어 있음 http://mblab.wustl.edu/GTF2.html  
+
+
+
+
+
