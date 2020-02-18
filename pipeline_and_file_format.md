@@ -13,8 +13,8 @@
 <br>
 #### NGS data processing and variant calling PipeLine          
 
-![pipeline의 예시](/pipeline.PNG){: width="70%" height="70%"}
-
+![pipeline의 예시](/pipeline.PNG)
+<br>
 * NGS data processing 과정에서 생성되는 파일이 FASTAQ 및 SAM/BAM 파일이고,
 * variant discovery에서 생성되는 파일이 VCF 파일임           
 
@@ -46,10 +46,11 @@ AAAFFJJJJJJJJJJJJJJJJJFJJFJJJJJFJJJJJJJJJJJJJJJJ#FJ#JJJJF#F#FJJ#F#JJJFJJJJJ
 - read를 참조 시퀀스에 매핑 한 후 생성 되며, 헤더와 본문이 있는 탭으로 구분 된 텍스트 형식
 - 헤더는 파일이 정렬 된 경우 버전 정보, 참조 순서 정보 등 SAM 파일에 대한 일반 정보를 보유함
 - 정렬 레코드는 파일의 본문을 구성하며, 각 정렬 라인 / 레코드에는 필수 정렬 정보를 설명하는 11 개의 필수 필드가 있음
+<br>
 - 11개의 필드 값
 
-![11개 필드](/field.png){: width="70%" height="70%"}
-
+![11개 필드](/field.png)
+<br>
 - 용어 정리
   - Template : 측정된 DNA 조각
   - Reads : 방법에 따라 템플릿이 하나 이상의 read를 생성할 수 있고, 이러한 read는 전체 템플릿 또는 해당 하위 섹션을 포괄할 수 있음
