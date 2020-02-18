@@ -14,7 +14,7 @@
 
 #### NGS data processing and variant calling PipeLine          
 
-![pipeline의 예시](/pipeline.PNG)
+![pipeline의 예시](/img/pipeline.PNG)
 <br>
 * NGS data processing 과정에서 생성되는 파일이 FASTAQ 및 SAM/BAM 파일이고,
 * variant discovery에서 생성되는 파일이 VCF 파일임           
@@ -55,7 +55,7 @@ AAAFFJJJJJJJJJJJJJJJJJFJJFJJJJJFJJJJJJJJJJJJJJJJ#FJ#JJJJF#F#FJJ#F#JJJFJJJJJ
 
 - 11개의 필드 값
 
-![11개 필드](/field.png)
+![11개 필드](/img/field.png)
 
 <br>
 
