@@ -4,5 +4,5 @@
 
 
 - 파일 포맷 형식 정리   https://ssene.tistory.com/4
-- NGS 정리
+- NGS 정리    https://ssene.tistory.com/8
 - GCP를 이용한 데이터 처리 예시  https://ssene.tistory.com/5
